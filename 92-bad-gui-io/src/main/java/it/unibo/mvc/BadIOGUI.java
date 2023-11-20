@@ -11,7 +11,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -40,10 +42,18 @@ public class BadIOGUI {
      */
     public BadIOGUI() {
         final JPanel canvas = new JPanel();
+        final JPanel newCanvas = new JPanel();
+
         canvas.setLayout(new BorderLayout());
+        newCanvas.setLayout(new BoxLayout(newCanvas, BoxLayout.LINE_AXIS));
+
         final JButton write = new JButton("Write on file");
-        canvas.add(write, BorderLayout.CENTER);
-        frame.setContentPane(canvas);
+        final JButton read = new JButton("Read from file");
+        //canvas.add(write, BorderLayout.CENTER);
+        //frame.setContentPane(canvas);
+        newCanvas.add(write, BorderLayout.CENTER);
+        newCanvas.add(read, BorderLayout.CENTER);
+        frame.setContentPane(newCanvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
          * Handlers
@@ -66,6 +76,20 @@ public class BadIOGUI {
                 }
             }
         });
+        read.addActionListener( new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                int fileReader;
+                try (InputStream is = new FileInputStream(PATH)) {
+                    while((fileReader = is.read()) != -1){
+                        System.out.println(fileReader);
+                    }
+                } catch (Exception e) {
+                // TODO: handle exception
+                }     
+            }
+        }) ;
     }
 
     private void display() {
@@ -90,6 +114,7 @@ public class BadIOGUI {
         /*
          * OK, ready to push the frame onscreen
          */
+        frame.pack();
         frame.setVisible(true);
     }
 
