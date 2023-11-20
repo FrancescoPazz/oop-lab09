@@ -12,13 +12,13 @@ import java.nio.charset.StandardCharsets;
 public class Controller {
     private final String FILENAME = "output.txt";
     
-    private final File current;
+    private File current;
     
-    public Controller(File current) {
+    public void setCurrentFile(File current){
         this.current = current;
     }
 
-    public File getCurrent() {
+    public File getCurrentFile() {
         return this.current;
     }
 
@@ -29,7 +29,7 @@ public class Controller {
         return PATH;
     }
 
-    public void writeStringOnFile(String stringToWrite){
+    public void writeStringOnFile(final String stringToWrite){
         try (PrintStream ps = new PrintStream(this.getPath(), StandardCharsets.UTF_8)) {
             ps.print(stringToWrite);
         } catch (IOException e1) {
