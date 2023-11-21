@@ -4,7 +4,7 @@ import it.unibo.mvc.api.DrawNumberController;
 import it.unibo.mvc.api.DrawNumberView;
 import it.unibo.mvc.api.DrawResult;
 
-public class StdoutDrawNumberView implements DrawNumberView {    
+public class DrawNumberOutputView implements DrawNumberView {    
     private static final String NEW_GAME = ": a new game starts!\n";
 
     @Override
